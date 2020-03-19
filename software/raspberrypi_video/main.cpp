@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 	int height = 120 * 3;
 
 	QWidget *myWidget = new QWidget;
-	myWidget->setGeometry(100, 100, width + 20, height + 60);
+	myWidget->setGeometry(150, 0, width + 20, height + 60);
 
 	//create an image placeholder for myLabel
 	//fill the top left corner with red, just bcuz

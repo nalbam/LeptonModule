@@ -295,13 +295,15 @@ void LeptonThread::run()
 				{
 					column = (i % PACKET_SIZE_UINT16) - 2 + (myImageWidth / 2) * ((i % (PACKET_SIZE_UINT16 * 2)) / PACKET_SIZE_UINT16);
 					row = i / PACKET_SIZE_UINT16 / 2 + ofsRow;
-
-					printf("row: %d   column: %d\n", row, column);
 				}
 				else
 				{
 					column = (i % PACKET_SIZE_UINT16) - 2;
 					row = i / PACKET_SIZE_UINT16;
+				}
+				if (mirror)
+				{
+					column = myImageWidth - column;
 				}
 				myImage.setPixel(column, row, color);
 			}
