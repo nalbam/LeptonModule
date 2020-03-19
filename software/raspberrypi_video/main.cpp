@@ -22,8 +22,8 @@ void printUsage(char *cmd)
 				 "           2 : grayscale\n"
 				 "           3 : ironblack [default]\n"
 				 " -tl x   select type of Lepton\n"
-				 "           2 : Lepton 2.x [default]\n"
-				 "           3 : Lepton 3.x\n"
+				 "           2 : Lepton 2.x\n"
+				 "           3 : Lepton 3.x [default]\n"
 				 "               [for your reference] Please use nice command\n"
 				 "                 e.g. sudo nice -n 0 ./%s -tl 3\n"
 				 " -ss x   SPI bus speed [MHz] (10 - 30)\n"
@@ -43,7 +43,7 @@ void printUsage(char *cmd)
 int main(int argc, char **argv)
 {
 	int typeColormap = 3; // colormap_ironblack
-	int typeLepton = 3;		// Lepton 2.x
+	int typeLepton = 3;		// Lepton 3.x
 	int spiSpeed = 20;		// SPI bus speed 20MHz
 	int rangeMin = -1;		//
 	int rangeMax = -1;		//
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 	int height = 120 * 3;
 
 	QWidget *myWidget = new QWidget;
-	myWidget->setGeometry(300, 300, width + 20, height + 50);
+	myWidget->setGeometry(300, 300, width + 20, height + 60);
 
 	//create an image placeholder for myLabel
 	//fill the top left corner with red, just bcuz
@@ -143,7 +143,7 @@ int main(int argc, char **argv)
 	myLabel.setPixmap(QPixmap::fromImage(myImage));
 
 	//create a FFC button
-	QPushButton *button1 = new QPushButton("Perform FFC", myWidget);
+	QPushButton *button1 = new QPushButton("Capture", myWidget);
 	button1->setGeometry((width + 20) / 2 - 50, height + 20, 100, 30);
 
 	//create a thread to gather SPI data
@@ -161,7 +161,7 @@ int main(int argc, char **argv)
 	QObject::connect(thread, SIGNAL(updateImage(QImage)), &myLabel, SLOT(setImage(QImage)));
 
 	//connect ffc button to the thread's ffc action
-	QObject::connect(button1, SIGNAL(clicked()), thread, SLOT(performFFC()));
+	QObject::connect(button1, SIGNAL(clicked()), thread, SLOT(capture()));
 	thread->start();
 
 	myWidget->show();

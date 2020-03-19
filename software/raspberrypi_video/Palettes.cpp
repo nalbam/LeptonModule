@@ -18,14 +18,17 @@ int get_size_colormap(const int colormap[])
     }
     return n;
 }
+
 int get_size_colormap_rainbow()
 {
     return get_size_colormap(colormap_rainbow);
 }
+
 int get_size_colormap_grayscale()
 {
     return get_size_colormap(colormap_grayscale);
 }
+
 int get_size_colormap_ironblack()
 {
     return get_size_colormap(colormap_ironblack);

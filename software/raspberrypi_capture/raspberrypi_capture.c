@@ -62,10 +62,11 @@ static void save_pgm_file(void)
 	char image_name[32];
 	int image_index = 0;
 
-	do {
+	do
+	{
 		sprintf(image_name, "IMG_%.4d.pgm", image_index);
 		image_index += 1;
-		if (image_index > 9999) 
+		if (image_index > 9999)
 		{
 			image_index = 0;
 			break;
@@ -81,31 +82,33 @@ static void save_pgm_file(void)
 	}
 
 	printf("Calculating min/max values for proper scaling...\n");
-	for(i=0;i<60;i++)
+	for (i = 0; i < 60; i++)
 	{
-		for(j=0;j<80;j++)
+		for (j = 0; j < 80; j++)
 		{
-			if (lepton_image[i][j] > maxval) {
+			if (lepton_image[i][j] > maxval)
+			{
 				maxval = lepton_image[i][j];
 			}
-			if (lepton_image[i][j] < minval) {
+			if (lepton_image[i][j] < minval)
+			{
 				minval = lepton_image[i][j];
 			}
 		}
 	}
-	printf("maxval = %u\n",maxval);
-	printf("minval = %u\n",minval);
-	
-	fprintf(f,"P2\n80 60\n%u\n",maxval-minval);
-	for(i=0;i<60;i++)
+	printf("maxval = %u\n", maxval);
+	printf("minval = %u\n", minval);
+
+	fprintf(f, "P2\n80 60\n%u\n", maxval - minval);
+	for (i = 0; i < 60; i++)
 	{
-		for(j=0;j<80;j++)
+		for (j = 0; j < 80; j++)
 		{
-			fprintf(f,"%d ", lepton_image[i][j] - minval);
+			fprintf(f, "%d ", lepton_image[i][j] - minval);
 		}
-		fprintf(f,"\n");
+		fprintf(f, "\n");
 	}
-	fprintf(f,"\n\n");
+	fprintf(f, "\n\n");
 
 	fclose(f);
 }
@@ -115,29 +118,31 @@ int transfer(int fd)
 	int ret;
 	int i;
 	int frame_number;
-	uint8_t tx[VOSPI_FRAME_SIZE] = {0, };
+	uint8_t tx[VOSPI_FRAME_SIZE] = {
+			0,
+	};
 	struct spi_ioc_transfer tr = {
-		.tx_buf = (unsigned long)tx,
-		.rx_buf = (unsigned long)lepton_frame_packet,
-		.len = VOSPI_FRAME_SIZE,
-		.delay_usecs = delay,
-		.speed_hz = speed,
-		.bits_per_word = bits,
+			.tx_buf = (unsigned long)tx,
+			.rx_buf = (unsigned long)lepton_frame_packet,
+			.len = VOSPI_FRAME_SIZE,
+			.delay_usecs = delay,
+			.speed_hz = speed,
+			.bits_per_word = bits,
 	};
 
 	ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 	if (ret < 1)
 		pabort("can't send spi message");
 
-	if(((lepton_frame_packet[0]&0xf) != 0x0f))
+	if (((lepton_frame_packet[0] & 0xf) != 0x0f))
 	{
 		frame_number = lepton_frame_packet[1];
 
-		if(frame_number < 60 )
+		if (frame_number < 60)
 		{
-			for(i=0;i<80;i++)
+			for (i = 0; i < 80; i++)
 			{
-				lepton_image[frame_number][i] = (lepton_frame_packet[2*i+4] << 8 | lepton_frame_packet[2*i+5]);
+				lepton_image[frame_number][i] = (lepton_frame_packet[2 * i + 4] << 8 | lepton_frame_packet[2 * i + 5]);
 			}
 		}
 	}
@@ -148,7 +153,6 @@ int main(int argc, char *argv[])
 {
 	int ret = 0;
 	int fd;
-
 
 	fd = open(device, O_RDWR);
 	if (fd < 0)
@@ -194,9 +198,11 @@ int main(int argc, char *argv[])
 
 	printf("spi mode: %d\n", mode);
 	printf("bits per word: %d\n", bits);
-	printf("max speed: %d Hz (%d KHz)\n", speed, speed/1000);
+	printf("max speed: %d Hz (%d KHz)\n", speed, speed / 1000);
 
-	while(transfer(fd)!=59){}
+	while (transfer(fd) != 59)
+	{
+	}
 
 	close(fd);
 

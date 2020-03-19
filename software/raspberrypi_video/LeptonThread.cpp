@@ -311,6 +311,12 @@ void LeptonThread::run()
 	SpiClosePort(0);
 }
 
+void LeptonThread::capture()
+{
+	// TODO: capture
+	log_message(3, "capture: smile~");
+}
+
 void LeptonThread::performFFC()
 {
 	//perform FFC
