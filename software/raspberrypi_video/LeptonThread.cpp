@@ -313,8 +313,10 @@ void LeptonThread::run()
 
 void LeptonThread::capture()
 {
-	// TODO: capture
-	log_message(3, "capture: smile~");
+	//TODO: 1. capture
+	//TODO: 2. save image
+	//TODO: 3. upload to s3
+	log_message(8, "capture: smile~");
 }
 
 void LeptonThread::performFFC()
