@@ -18,6 +18,9 @@ LeptonThread::LeptonThread() : QThread()
 	loglevel = 0;
 
 	//
+	mirror = false;
+
+	//
 	typeColormap = 3; // 1:colormap_rainbow  /  2:colormap_grayscale  /  3:colormap_ironblack(default)
 	selectedColormap = colormap_ironblack;
 	selectedColormapSize = get_size_colormap_ironblack();
@@ -44,6 +47,11 @@ LeptonThread::~LeptonThread()
 void LeptonThread::setLogLevel(uint16_t newLoglevel)
 {
 	loglevel = newLoglevel;
+}
+
+void LeptonThread::setMirror(bool mirrorMode)
+{
+	mirror = mirrorMode;
 }
 
 void LeptonThread::useColormap(int newTypeColormap)
@@ -287,6 +295,8 @@ void LeptonThread::run()
 				{
 					column = (i % PACKET_SIZE_UINT16) - 2 + (myImageWidth / 2) * ((i % (PACKET_SIZE_UINT16 * 2)) / PACKET_SIZE_UINT16);
 					row = i / PACKET_SIZE_UINT16 / 2 + ofsRow;
+
+					printf("row: %d   column: %d\n", row, column);
 				}
 				else
 				{

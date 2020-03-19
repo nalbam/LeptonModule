@@ -34,6 +34,7 @@ void printUsage(char *cmd)
 				 " -max x  override maximum value for scaling (0 - 65535)\n"
 				 "           [default] automatic scaling range adjustment\n"
 				 "           e.g. -max 31000\n"
+				 " -mirror mirror mode\n"
 				 " -d x    log level (0-255)\n"
 				 "",
 				 cmdname, cmdname);
@@ -48,6 +49,8 @@ int main(int argc, char **argv)
 	int rangeMin = -1;		//
 	int rangeMax = -1;		//
 	int loglevel = 0;
+	bool mirror = false;
+
 	for (int i = 1; i < argc; i++)
 	{
 		if (strcmp(argv[i], "-h") == 0)
@@ -113,6 +116,10 @@ int main(int argc, char **argv)
 				i++;
 			}
 		}
+		else if (strcmp(argv[i], "-mirror") == 0)
+		{
+			mirror = true;
+		}
 	}
 
 	//create the app
@@ -149,6 +156,7 @@ int main(int argc, char **argv)
 	//create a thread to gather SPI data
 	//when the thread emits updateImage, the label should update its image accordingly
 	LeptonThread *thread = new LeptonThread();
+	thread->setMirror(mirror);
 	thread->setLogLevel(loglevel);
 	thread->useColormap(typeColormap);
 	thread->useLepton(typeLepton);

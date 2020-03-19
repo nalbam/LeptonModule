@@ -23,6 +23,7 @@ public:
   ~LeptonThread();
 
   void setLogLevel(uint16_t);
+  void setMirror(bool);
   void useColormap(int);
   void useLepton(int);
   void useSpiSpeedMhz(unsigned int);
@@ -42,6 +43,7 @@ signals:
 private:
   void log_message(uint16_t, std::string);
   uint16_t loglevel;
+  bool mirror;
   int typeColormap;
   const int *selectedColormap;
   int selectedColormapSize;
