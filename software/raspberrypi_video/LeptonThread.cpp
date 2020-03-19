@@ -303,7 +303,7 @@ void LeptonThread::run()
 				}
 				if (mirror)
 				{
-					column = myImageWidth - column;
+					column = myImageWidth - column - 1;
 				}
 				myImage.setPixel(column, row, color);
 			}
