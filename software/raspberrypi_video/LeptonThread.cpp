@@ -329,10 +329,6 @@ void LeptonThread::capture()
 	//TODO: 2. save image
 	//TODO: 3. upload to s3
 
-	time_t now = time(NULL);
-
-	printf("capture: %ld\n", now);
-
 	const char *homedir;
 	if ((homedir = getenv("HOME")) == NULL)
 	{
@@ -340,6 +336,10 @@ void LeptonThread::capture()
 	}
 
 	printf("homedir: %s\n", homedir);
+
+	time_t now = time(NULL);
+
+	printf("capture: %ld\n", now);
 
 	// save image
 	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
