@@ -324,6 +324,7 @@ void LeptonThread::run()
 		//lets emit the signal for update
 		emit updateImage(myImage);
 
+		//over_heat
 		if (over_heat)
 		{
 			capture();
