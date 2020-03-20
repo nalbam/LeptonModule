@@ -378,6 +378,8 @@ void LeptonThread::capture()
 	strcat(img_path, "s3://deeplens-doorman-demo/thermal/");
 	strcat(img_path, filename);
 	system(aws);
+
+	printf("cmd: %s\n", aws);
 }
 
 void LeptonThread::performFFC()
