@@ -354,7 +354,7 @@ void LeptonThread::capture()
 	FILE *f = fopen(json_path, "w");
 	if (f == NULL)
 	{
-		printf("Error opening file!\n");
+		printf("Error opening file! %s\n", json_path);
 		return;
 	}
 
