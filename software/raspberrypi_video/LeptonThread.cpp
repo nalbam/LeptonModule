@@ -331,12 +331,7 @@ void LeptonThread::capture()
 
 	time_t now = time(NULL);
 
-	printf("capture: smile %ld\n", now);
-
-	// save image
-	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
-
-	printf("capture: %s\n", isSave ? "true" : "false");
+	printf("capture: %ld\n", now);
 
 	const char *homedir;
 	if ((homedir = getenv("HOME")) == NULL)
@@ -344,7 +339,18 @@ void LeptonThread::capture()
 		homedir = getpwuid(getuid())->pw_dir;
 	}
 
-	// save json file
+	printf("homedir: %s\n", homedir);
+
+	// save image
+	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
+
+	printf("capture: %s\n", isSave ? "true" : "false");
+
+	// char str[80];
+	// strcpy(str, homedir);
+	// strcpy(str, "/.doorman.json");
+
+	// save json
 	FILE *f = fopen(".doorman.json", "w");
 	if (f == NULL)
 	{

@@ -1,6 +1,7 @@
 #ifndef TEXTTHREAD
 #define TEXTTHREAD
 
+#include <cstring>
 #include <ctime>
 #include <pwd.h>
 #include <stdint.h>
