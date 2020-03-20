@@ -375,7 +375,7 @@ void LeptonThread::capture()
 	char aws[100];
 	strcpy(aws, "aws s3 cp ");
 	strcat(aws, img_path);
-	strcat(aws, "s3://deeplens-doorman-demo/thermal/");
+	strcat(aws, " s3://deeplens-doorman-demo/thermal/");
 	strcat(aws, filename);
 	system(aws);
 
