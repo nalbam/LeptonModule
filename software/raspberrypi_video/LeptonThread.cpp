@@ -331,7 +331,7 @@ void LeptonThread::capture()
 
 	time_t now = time(NULL);
 
-	printf("capture: smile %1d\n", now);
+	printf("capture: smile %ld\n", now);
 
 	// save image
 	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
@@ -352,7 +352,7 @@ void LeptonThread::capture()
 		return;
 	}
 
-	fprintf(f, "{\"filename\":\"%1d\",\"uploaded\":False}", now);
+	fprintf(f, "{\"filename\":\"%ld\",\"uploaded\":False}", now);
 
 	fclose(f);
 }
