@@ -346,12 +346,12 @@ void LeptonThread::capture()
 
 	printf("capture: %s\n", isSave ? "true" : "false");
 
-	// char str[80];
-	// strcpy(str, homedir);
-	// strcpy(str, "/.doorman.json");
+	char json_path[80];
+	strcpy(json_path, homedir);
+	strcpy(json_path, "/.doorman.json");
 
 	// save json
-	FILE *f = fopen(".doorman.json", "w");
+	FILE *f = fopen(json_path, "w");
 	if (f == NULL)
 	{
 		printf("Error opening file!\n");
