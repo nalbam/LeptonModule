@@ -369,7 +369,7 @@ void LeptonThread::capture()
 	fclose(f);
 
 	// upload to s3
-	char filename[81];
+	char filename[20];
 	sprintf(filename, "%d.jpg", now);
 
 	char aws[100];
