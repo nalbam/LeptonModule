@@ -250,7 +250,7 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
-		bool over_heat = false;
+		// bool over_heat = false;
 		int row, column;
 		uint16_t value;
 		uint16_t valueFrameBuffer;
@@ -281,11 +281,11 @@ void LeptonThread::run()
 
 				//
 				value = (valueFrameBuffer - minValue) * scale;
-				if (value > 255)
-				{
-					// value = 0;
-					over_heat = true;
-				}
+				// if (value > 255)
+				// {
+				// 	// value = 0;
+				// 	over_heat = true;
+				// }
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
 					ofs_r = colormapSize - 1;
@@ -320,12 +320,12 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		//over_heat
-		if (over_heat)
-		{
-			printf("starting capture...\n");
-			// capture();
-		}
+		// //over_heat
+		// if (over_heat)
+		// {
+		// 	printf("starting capture...\n");
+		// 	// capture();
+		// }
 
 		//lets emit the signal for update
 		emit updateImage(myImage);
