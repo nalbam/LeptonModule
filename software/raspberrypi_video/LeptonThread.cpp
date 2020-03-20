@@ -363,7 +363,7 @@ void LeptonThread::capture()
 		return;
 	}
 
-	fprintf(f, "{\"filename\":\"%ld\",\"uploaded\":False}", now);
+	fprintf(f, "{\"filename\":\"%ld\",\"uploaded\":false}", now);
 
 	fclose(f);
 }
