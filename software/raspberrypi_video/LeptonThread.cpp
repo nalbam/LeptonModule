@@ -343,8 +343,15 @@ void LeptonThread::capture()
 
 	printf("capture: %ld\n", now);
 
+	// img_path
+	char img_path[30];
+	strcpy(img_path, homedir);
+	strcat(img_path, "/capture.jpg");
+
+	printf("img_path: %s\n", img_path);
+
 	// save image
-	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
+	bool isSave = myImage.save(img_path, "jpeg", 100);
 
 	printf("capture: %s\n", isSave ? "true" : "false");
 
