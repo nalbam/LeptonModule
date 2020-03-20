@@ -389,6 +389,7 @@ void LeptonThread::capture()
 	strcat(aws, img_path);
 	strcat(aws, " s3://deeplens-doorman-demo/thermal/");
 	strcat(aws, filename);
+	strcat(aws, " --acl public-read");
 
 	printf("cmd: %s\n", aws);
 
