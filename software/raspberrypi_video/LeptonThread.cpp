@@ -134,6 +134,7 @@ void LeptonThread::run()
 
 	while (true)
 	{
+		bool over_heat = false;
 
 		//read data packets from lepton over SPI
 		int resets = 0;
@@ -284,6 +285,7 @@ void LeptonThread::run()
 				if (value > 255)
 				{
 					value = 0;
+					over_heat = true;
 				}
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
@@ -321,6 +323,11 @@ void LeptonThread::run()
 
 		//lets emit the signal for update
 		emit updateImage(myImage);
+
+		if (over_heat)
+		{
+			capture();
+		}
 	}
 
 	//finally, close SPI port just bcuz
