@@ -324,7 +324,7 @@ void LeptonThread::run()
 		//over_heat
 		if (over_heat)
 		{
-			printf("starting capture...");
+			printf("starting capture...\n");
 			// capture();
 		}
 
