@@ -134,8 +134,6 @@ void LeptonThread::run()
 
 	while (true)
 	{
-		bool over_heat = false;
-
 		//read data packets from lepton over SPI
 		int resets = 0;
 		int segmentNumber = -1;
@@ -252,6 +250,7 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
+		bool over_heat = false;
 		int row, column;
 		uint16_t value;
 		uint16_t valueFrameBuffer;
