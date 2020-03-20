@@ -329,14 +329,6 @@ void LeptonThread::capture()
 	//TODO: 2. save image
 	//TODO: 3. upload to s3
 
-	const char *homedir;
-	if ((homedir = getenv("HOME")) == NULL)
-	{
-		homedir = getpwuid(getuid())->pw_dir;
-	}
-
-	printf("homedir: %s\n", homedir);
-
 	time_t now = time(NULL);
 
 	printf("capture: %ld\n", now);
@@ -346,8 +338,15 @@ void LeptonThread::capture()
 
 	printf("capture: %s\n", isSave ? "true" : "false");
 
-	char *json_path;
-	strcpy(json_path, homedir);
+	// json_path
+	const char *json_path;
+	if ((json_path = getenv("HOME")) == NULL)
+	{
+		json_path = getpwuid(getuid())->pw_dir;
+	}
+
+	printf("json_path: %s\n", json_path);
+
 	strcat(json_path, "/.doorman.json");
 
 	printf("json_path: %s\n", json_path);
