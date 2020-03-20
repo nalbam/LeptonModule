@@ -350,7 +350,7 @@ void LeptonThread::capture()
 
 	// json_path
 	char json_path[30];
-	strcat(json_path, homedir);
+	strcpy(json_path, homedir);
 	strcat(json_path, "/.doorman.json");
 
 	printf("json_path: %s\n", json_path);
