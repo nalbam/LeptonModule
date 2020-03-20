@@ -321,14 +321,14 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		//lets emit the signal for update
-		emit updateImage(myImage);
-
 		//over_heat
 		if (over_heat)
 		{
 			capture();
 		}
+
+		//lets emit the signal for update
+		emit updateImage(myImage);
 	}
 
 	//finally, close SPI port just bcuz
