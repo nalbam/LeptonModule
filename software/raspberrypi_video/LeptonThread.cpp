@@ -369,12 +369,14 @@ void LeptonThread::capture()
 	fclose(f);
 
 	// upload to s3
+	char filename[81];
+	sprintf(filename, "%d.jpg", now);
+
 	char aws[100];
 	strcpy(img_path, "aws s3 cp ");
 	strcat(img_path, img_path);
 	strcat(img_path, "s3://deeplens-doorman-demo/thermal/");
-	strcat(img_path, now);
-	strcat(img_path, "-thermal.jpg");
+	strcat(img_path, filename);
 	system(aws);
 }
 
