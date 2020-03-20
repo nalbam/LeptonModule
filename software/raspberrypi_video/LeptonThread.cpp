@@ -370,7 +370,7 @@ void LeptonThread::capture()
 
 	// upload to s3
 	char filename[20];
-	sprintf(filename, "%d.jpg", now);
+	sprintf(filename, "%ld.jpg", now);
 
 	char aws[100];
 	strcpy(aws, "aws s3 cp ");
