@@ -346,9 +346,9 @@ void LeptonThread::capture()
 
 	printf("capture: %s\n", isSave ? "true" : "false");
 
-	char json_path[80];
-	strcpy(json_path, homedir);
-	strcpy(json_path, "/.doorman.json");
+	const char *json_path;
+	json_path = homedir;
+	strcpy_s(json_path, sizeof(json_path), "/.doorman.json");
 
 	// save json
 	FILE *f = fopen(json_path, "w");
