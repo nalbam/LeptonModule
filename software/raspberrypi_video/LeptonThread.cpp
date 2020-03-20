@@ -329,7 +329,11 @@ void LeptonThread::capture()
 	//TODO: 2. save image
 	//TODO: 3. upload to s3
 
-	printf("capture: smile");
+	printf("capture: smile\n");
+
+	bool isSave = myImage.save("/tmp/capture.jpeg", "jpeg", 100);
+
+	printf("capture: %s\n", isSave ? "true" : "false");
 }
 
 void LeptonThread::performFFC()
