@@ -321,11 +321,11 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		//over_heat
-		if (over_heat)
-		{
-			capture();
-		}
+		// //over_heat
+		// if (over_heat)
+		// {
+		// 	capture();
+		// }
 
 		//lets emit the signal for update
 		emit updateImage(myImage);
