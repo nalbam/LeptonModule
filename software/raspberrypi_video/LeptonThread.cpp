@@ -325,10 +325,6 @@ void LeptonThread::run()
 
 void LeptonThread::capture()
 {
-	//TODO: 1. capture
-	//TODO: 2. save image
-	//TODO: 3. upload to s3
-
 	// homedir
 	const char *homedir;
 	if ((homedir = getenv("HOME")) == NULL)
@@ -369,10 +365,17 @@ void LeptonThread::capture()
 		printf("Error opening file! %s\n", json_path);
 		return;
 	}
-
 	fprintf(f, "{\"filename\":\"%ld\",\"uploaded\":false}", now);
-
 	fclose(f);
+
+	// upload to s3
+	char aws[100];
+	strcpy(img_path, "aws s3 cp ");
+	strcat(img_path, img_path);
+	strcat(img_path, "s3://deeplens-doorman-demo/thermal/");
+	strcat(img_path, now);
+	strcat(img_path, "-thermal.jpg");
+	system(aws);
 }
 
 void LeptonThread::performFFC()
