@@ -329,11 +329,32 @@ void LeptonThread::capture()
 	//TODO: 2. save image
 	//TODO: 3. upload to s3
 
-	printf("capture: smile\n");
+	time_t now = time(NULL);
 
-	bool isSave = myImage.save("/tmp/capture.jpeg", "jpeg", 100);
+	printf("capture: smile %1d\n", now);
+
+	// save image
+	bool isSave = myImage.save("/tmp/capture.jpg", "jpeg", 100);
 
 	printf("capture: %s\n", isSave ? "true" : "false");
+
+	const char *homedir;
+	if ((homedir = getenv("HOME")) == NULL)
+	{
+		homedir = getpwuid(getuid())->pw_dir;
+	}
+
+	// save json file
+	FILE *f = fopen(".doorman.json", "w");
+	if (f == NULL)
+	{
+		printf("Error opening file!\n");
+		return;
+	}
+
+	fprintf(f, "{\"filename\":\"%1d\",\"uploaded\":False}", now);
+
+	fclose(f);
 }
 
 void LeptonThread::performFFC()

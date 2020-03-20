@@ -2,7 +2,10 @@
 #define TEXTTHREAD
 
 #include <ctime>
+#include <pwd.h>
 #include <stdint.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include <QThread>
 #include <QtCore>
