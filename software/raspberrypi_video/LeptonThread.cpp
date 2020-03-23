@@ -285,6 +285,7 @@ void LeptonThread::run()
 				{
 					// value = 0;
 					over_heat = true;
+					printf("over_heat : %d \n", value);
 				}
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
