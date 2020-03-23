@@ -285,7 +285,7 @@ void LeptonThread::run()
 				{
 					// value = 0;
 					over_heat = true;
-					printf("over_heat : %d / %d \n", value, (int)(colormapSize / 3));
+					// printf("over_heat : %d / %d \n", value, (int)(colormapSize / 3));
 				}
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
@@ -325,7 +325,7 @@ void LeptonThread::run()
 		if (over_heat)
 		{
 			printf("starting capture...\n");
-			// capture();
+			capture();
 		}
 
 		//lets emit the signal for update
