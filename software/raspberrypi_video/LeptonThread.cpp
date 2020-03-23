@@ -281,7 +281,7 @@ void LeptonThread::run()
 
 				//
 				value = (valueFrameBuffer - minValue) * scale;
-				if (value > 255 && !over_heat)
+				if (value >= 255 && !over_heat)
 				{
 					// value = 0;
 					over_heat = true;
