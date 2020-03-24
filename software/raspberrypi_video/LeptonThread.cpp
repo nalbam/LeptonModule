@@ -135,8 +135,7 @@ void LeptonThread::run()
 	uint16_t n_wrong_segment = 0;
 	uint16_t n_zero_value_drop_frame = 0;
 
-	uint16_t minTemp = 65535;
-	uint16_t maxTemp = 0;
+	QRgb crosshair = qRgb(0, 0, 255);
 
 	//open spi port
 	SpiOpenPort(0, spiSpeed);
@@ -218,8 +217,10 @@ void LeptonThread::run()
 			iSegmentStop = 1;
 		}
 
-		minTemp = 65535;
-		maxTemp = 0;
+		uint16_t minTemp = 65535;
+		uint16_t maxTemp = 0;
+		bool over_heat = false;
+		int max_row, max_column;
 
 		for (int iSegment = iSegmentStart; iSegment <= iSegmentStop; iSegment++)
 		{
@@ -263,9 +264,13 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
+		if (maxTemp >= maxValue)
+		{
+			over_heat = true;
+		}
+
 		printf("%d (%.1f) : %d (%.1f)\n", minTemp, (minTemp - 27700) / 90.0, maxTemp, (maxTemp - 27700) / 90.0);
 
-		bool over_heat = false;
 		int row, column;
 		uint16_t value;
 		uint16_t valueFrameBuffer;
@@ -296,12 +301,10 @@ void LeptonThread::run()
 
 				//
 				value = (valueFrameBuffer - minValue) * scale;
-				if (value >= 255 && !over_heat)
-				{
-					// value = 0;
-					over_heat = true;
-					// printf("over_heat : %d / %d \n", value, (int)(colormapSize / 3));
-				}
+				// if (value > 255)
+				// {
+				// 	value = 255;
+				// }
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
 					ofs_r = colormapSize - 1;
@@ -326,6 +329,11 @@ void LeptonThread::run()
 				{
 					column = myImageWidth - column - 1;
 				}
+				if (over_heat && valueFrameBuffer == maxTemp)
+				{
+					max_column = column;
+					max_row = row;
+				}
 				myImage.setPixel(column, row, color);
 			}
 		}
@@ -336,11 +344,27 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		//over_heat
-		if (auto_capture && over_heat)
+		if (over_heat)
 		{
-			printf("starting capture...\n");
-			capture();
+			//crosshair
+			for (int i = -1; i < 2; i++)
+			{
+				if (max_column + i >= 0)
+				{
+					myImage.setPixel((max_column + i), max_row, crosshair);
+				}
+				if (max_row + i >= 0)
+				{
+					myImage.setPixel(max_column, (max_row + i), crosshair);
+				}
+			}
+
+			//over_heat
+			if (auto_capture)
+			{
+				printf("starting capture...\n");
+				capture();
+			}
 		}
 
 		//lets emit the signal for update
