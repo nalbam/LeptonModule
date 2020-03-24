@@ -220,7 +220,7 @@ void LeptonThread::run()
 		uint16_t minTemp = 65535;
 		uint16_t maxTemp = 0;
 		bool over_heat = false;
-		int max_row, max_column;
+		int max_row = 0, max_column = 0;
 
 		for (int iSegment = iSegmentStart; iSegment <= iSegmentStop; iSegment++)
 		{
