@@ -50,6 +50,7 @@ private:
   void log_message(uint16_t, std::string);
   uint16_t loglevel;
   bool mirror;
+  bool auto_capture;
   int typeColormap;
   const int *selectedColormap;
   int selectedColormapSize;
