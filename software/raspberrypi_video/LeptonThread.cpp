@@ -129,6 +129,9 @@ void LeptonThread::run()
 	uint16_t n_wrong_segment = 0;
 	uint16_t n_zero_value_drop_frame = 0;
 
+	uint16_t minTemp = 65535;
+	uint16_t maxTemp = 0;
+
 	//open spi port
 	SpiOpenPort(0, spiSpeed);
 
@@ -209,48 +212,52 @@ void LeptonThread::run()
 			iSegmentStop = 1;
 		}
 
+		minTemp = 65535;
+		maxTemp = 0;
+
+		for (int iSegment = iSegmentStart; iSegment <= iSegmentStop; iSegment++)
+		{
+			for (int i = 0; i < FRAME_SIZE_UINT16; i++)
+			{
+				//skip the first 2 uint16_t's of every packet, they're 4 header bytes
+				if (i % PACKET_SIZE_UINT16 < 2)
+				{
+					continue;
+				}
+
+				//flip the MSB and LSB at the last second
+				uint16_t value = (shelf[iSegment - 1][i * 2] << 8) + shelf[iSegment - 1][i * 2 + 1];
+				if (value == 0)
+				{
+					// Why this value is 0?
+					continue;
+				}
+				if (value > maxTemp)
+				{
+					maxTemp = value;
+				}
+				if (value < minTemp)
+				{
+					minTemp = value;
+				}
+			}
+		}
+
 		if ((autoRangeMin == true) || (autoRangeMax == true))
 		{
 			if (autoRangeMin == true)
 			{
-				minValue = 65535;
+				minValue = minTemp;
 			}
 			if (autoRangeMax == true)
 			{
-				maxValue = 0;
-			}
-			for (int iSegment = iSegmentStart; iSegment <= iSegmentStop; iSegment++)
-			{
-				for (int i = 0; i < FRAME_SIZE_UINT16; i++)
-				{
-					//skip the first 2 uint16_t's of every packet, they're 4 header bytes
-					if (i % PACKET_SIZE_UINT16 < 2)
-					{
-						continue;
-					}
-
-					//flip the MSB and LSB at the last second
-					uint16_t value = (shelf[iSegment - 1][i * 2] << 8) + shelf[iSegment - 1][i * 2 + 1];
-					if (value == 0)
-					{
-						// Why this value is 0?
-						continue;
-					}
-					if ((autoRangeMax == true) && (value > maxValue))
-					{
-						maxValue = value;
-					}
-					if ((autoRangeMin == true) && (value < minValue))
-					{
-						minValue = value;
-					}
-				}
+				maxValue = maxTemp;
 			}
 			diff = maxValue - minValue;
 			scale = 255 / diff;
 		}
 
-		printf("%d (%.1f) : %d (%.1f)\n", minValue, (minValue - 27700) / 90.0, maxValue, (maxValue - 27700) / 90.0);
+		printf("%d (%.1f) : %d (%.1f)\n", minTemp, (minTemp - 27700) / 90.0, maxTemp, (maxTemp - 27700) / 90.0);
 
 		bool over_heat = false;
 		int row, column;
