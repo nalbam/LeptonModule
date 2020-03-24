@@ -250,6 +250,8 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
+		printf("%d %d : \n", minValue, maxValue);
+
 		bool over_heat = false;
 		int row, column;
 		uint16_t value;
@@ -325,7 +327,7 @@ void LeptonThread::run()
 		if (over_heat)
 		{
 			printf("starting capture...\n");
-			capture();
+			// capture();
 		}
 
 		//lets emit the signal for update
