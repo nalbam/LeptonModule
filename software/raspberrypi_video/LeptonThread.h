@@ -29,6 +29,7 @@ public:
 
   void setLogLevel(uint16_t);
   void setMirror(bool);
+  void setAutoCapture(bool);
   void useColormap(int);
   void useLepton(int);
   void useSpiSpeedMhz(unsigned int);

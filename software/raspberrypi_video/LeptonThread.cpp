@@ -19,6 +19,7 @@ LeptonThread::LeptonThread() : QThread()
 
 	//
 	mirror = false;
+	auto_capture = false;
 
 	//
 	typeColormap = 3; // 1:colormap_rainbow  /  2:colormap_grayscale  /  3:colormap_ironblack(default)
@@ -49,9 +50,14 @@ void LeptonThread::setLogLevel(uint16_t newLoglevel)
 	loglevel = newLoglevel;
 }
 
-void LeptonThread::setMirror(bool mirrorMode)
+void LeptonThread::setMirror(bool val)
 {
-	mirror = mirrorMode;
+	mirror = val;
+}
+
+void LeptonThread::setAutoCapture(bool val)
+{
+	auto_capture = val;
 }
 
 void LeptonThread::useColormap(int newTypeColormap)
@@ -330,12 +336,12 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		// //over_heat
-		// if (over_heat)
-		// {
-		// 	printf("starting capture...\n");
-		// 	// capture();
-		// }
+		//over_heat
+		if (auto_capture && over_heat)
+		{
+			printf("starting capture...\n");
+			capture();
+		}
 
 		//lets emit the signal for update
 		emit updateImage(myImage);

@@ -35,6 +35,7 @@ void printUsage(char *cmd)
 				 "           [default] automatic scaling range adjustment\n"
 				 "           e.g. -max 31200\n"
 				 " -mirror mirror mode\n"
+				 " -auto   auto capture mode\n"
 				 " -d x    log level (0-255)\n"
 				 "",
 				 cmdname, cmdname);
@@ -50,6 +51,7 @@ int main(int argc, char **argv)
 	int rangeMax = -1;		//
 	int loglevel = 0;
 	bool mirror = false;
+	bool auto_capture = false;
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -120,6 +122,10 @@ int main(int argc, char **argv)
 		{
 			mirror = true;
 		}
+		else if (strcmp(argv[i], "-auto") == 0)
+		{
+			auto_capture = true;
+		}
 	}
 
 	//create the app
@@ -157,6 +163,7 @@ int main(int argc, char **argv)
 	//when the thread emits updateImage, the label should update its image accordingly
 	LeptonThread *thread = new LeptonThread();
 	thread->setMirror(mirror);
+	thread->setAutoCapture(auto_capture);
 	thread->setLogLevel(loglevel);
 	thread->useColormap(typeColormap);
 	thread->useLepton(typeLepton);
