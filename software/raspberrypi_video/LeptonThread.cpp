@@ -36,8 +36,8 @@ LeptonThread::LeptonThread() : QThread()
 	// min/max value for scaling
 	autoRangeMin = true;
 	autoRangeMax = true;
-	rangeMin = 29000;
-	rangeMax = 31000;
+	rangeMin = 29500;
+	rangeMax = 31200;
 }
 
 LeptonThread::~LeptonThread()
@@ -250,7 +250,7 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
-		printf("%d %d : \n", minValue, maxValue);
+		printf("%d (%d) : %d (%d)\n", minValue, (int)((minValue - 27700) / 93), maxValue, (int)((maxValue - 27700) / 93));
 
 		bool over_heat = false;
 		int row, column;

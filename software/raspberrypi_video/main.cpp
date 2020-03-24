@@ -30,10 +30,10 @@ void printUsage(char *cmd)
 				 "           20 : 20MHz [default]\n"
 				 " -min x  override minimum value for scaling (0 - 65535)\n"
 				 "           [default] automatic scaling range adjustment\n"
-				 "           e.g. -min 29000\n"
+				 "           e.g. -min 29500\n"
 				 " -max x  override maximum value for scaling (0 - 65535)\n"
 				 "           [default] automatic scaling range adjustment\n"
-				 "           e.g. -max 31000\n"
+				 "           e.g. -max 31200\n"
 				 " -mirror mirror mode\n"
 				 " -d x    log level (0-255)\n"
 				 "",
