@@ -250,7 +250,7 @@ void LeptonThread::run()
 			scale = 255 / diff;
 		}
 
-		printf("%d (%.1f) : %d (%.1f)\n", minValue, (minValue - 27700) / 91.0, maxValue, (maxValue - 27700) / 91.0);
+		printf("%d (%.1f) : %d (%.1f)\n", minValue, (minValue - 27700) / 90.0, maxValue, (maxValue - 27700) / 90.0);
 
 		bool over_heat = false;
 		int row, column;
