@@ -329,7 +329,7 @@ void LeptonThread::run()
 				{
 					column = myImageWidth - column - 1;
 				}
-				if (over_heat && valueFrameBuffer == maxTemp)
+				if (valueFrameBuffer == maxTemp)
 				{
 					max_column = column;
 					max_row = row;
@@ -344,27 +344,24 @@ void LeptonThread::run()
 			n_zero_value_drop_frame = 0;
 		}
 
-		if (over_heat)
+		//crosshair
+		for (int i = -1; i < 2; i++)
 		{
-			//crosshair
-			for (int i = -1; i < 2; i++)
+			if (max_column + i >= 0)
 			{
-				if (max_column + i >= 0)
-				{
-					myImage.setPixel((max_column + i), max_row, crosshair);
-				}
-				if (max_row + i >= 0)
-				{
-					myImage.setPixel(max_column, (max_row + i), crosshair);
-				}
+				myImage.setPixel((max_column + i), max_row, crosshair);
 			}
+			if (max_row + i >= 0)
+			{
+				myImage.setPixel(max_column, (max_row + i), crosshair);
+			}
+		}
 
-			//over_heat
-			if (auto_capture)
-			{
-				printf("starting capture...\n");
-				capture();
-			}
+		//capture over_heat
+		if (over_heat && auto_capture)
+		{
+			printf("starting capture...\n");
+			capture();
 		}
 
 		//lets emit the signal for update
