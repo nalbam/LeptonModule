@@ -135,7 +135,7 @@ void LeptonThread::run()
 	uint16_t n_wrong_segment = 0;
 	uint16_t n_zero_value_drop_frame = 0;
 
-	QRgb crosshair = qRgb(0, 0, 255);
+	QRgb crosshair = qRgb(0, 200, 0);
 
 	//open spi port
 	SpiOpenPort(0, spiSpeed);
