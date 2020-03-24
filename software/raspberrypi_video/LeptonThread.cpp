@@ -347,13 +347,15 @@ void LeptonThread::run()
 		//crosshair
 		for (int i = -1; i < 2; i++)
 		{
-			if (max_column + i >= 0 && max_column < myImageHeight)
+			column = max_column + i;
+			row = max_row + i;
+			if (column >= 0 && column < myImageWidth)
 			{
-				myImage.setPixel((max_column + i), max_row, crosshair);
+				myImage.setPixel(column, max_row, crosshair);
 			}
-			if (max_row + i >= 0 && max_row < myImageWidth)
+			if (row >= 0 && row < myImageHeight)
 			{
-				myImage.setPixel(max_column, (max_row + i), crosshair);
+				myImage.setPixel(max_column, row, crosshair);
 			}
 		}
 
