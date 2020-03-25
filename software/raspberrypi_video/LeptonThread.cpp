@@ -400,7 +400,14 @@ void LeptonThread::capture()
 		homedir = getpwuid(getuid())->pw_dir;
 	}
 
+	const char *bucket;
+	if ((bucket = getenv("STORAGE_NAME")) == NULL)
+	{
+		bucket = "deeplens-doorman-demo";
+	}
+
 	printf("homedir: %s\n", homedir);
+	printf("bucket: %s\n", bucket);
 
 	// capture time
 	time_t now = time(NULL);
@@ -421,7 +428,7 @@ void LeptonThread::capture()
 
 	// upload image to s3
 	char img_dest[60];
-	sprintf(img_dest, "s3://deeplens-doorman-demo/thermal/%ld.jpg", now);
+	sprintf(img_dest, "s3://%s/thermal/%ld.jpg", bucket, now);
 
 	char img_cli[100];
 	strcpy(img_cli, "aws s3 cp ");
@@ -453,7 +460,7 @@ void LeptonThread::capture()
 
 	// upload json to s3
 	char json_dest[60];
-	sprintf(json_dest, "s3://deeplens-doorman-demo/meta/%ld.json", now);
+	sprintf(json_dest, "s3://%s/meta/%ld.json", bucket, now);
 
 	char json_cli[100];
 	strcpy(json_cli, "aws s3 cp ");
