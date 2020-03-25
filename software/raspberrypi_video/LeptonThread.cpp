@@ -413,6 +413,21 @@ void LeptonThread::capture()
 
 	printf("capture: %s\n", isSave ? "true" : "false");
 
+	// upload image to s3
+	char img_dest[60];
+	sprintf(img_dest, "s3://deeplens-doorman-demo/thermal/%ld.jpg", now);
+
+	char img_cli[100];
+	strcpy(img_cli, "aws s3 cp ");
+	strcat(img_cli, img_path);
+	strcat(img_cli, " ");
+	strcat(img_cli, img_dest);
+	strcat(img_cli, " --acl public-read");
+
+	printf("cmd: %s\n", img_cli);
+
+	system(img_cli);
+
 	// json_path
 	char json_path[30];
 	strcpy(json_path, homedir);
@@ -444,21 +459,6 @@ void LeptonThread::capture()
 	printf("cmd: %s\n", json_cli);
 
 	system(json_cli);
-
-	// upload image to s3
-	char img_dest[60];
-	sprintf(img_dest, "s3://deeplens-doorman-demo/thermal/%ld.jpg", now);
-
-	char img_cli[100];
-	strcpy(img_cli, "aws s3 cp ");
-	strcat(img_cli, img_path);
-	strcat(img_cli, " ");
-	strcat(img_cli, img_dest);
-	strcat(img_cli, " --acl public-read");
-
-	printf("cmd: %s\n", img_cli);
-
-	system(img_cli);
 }
 
 void LeptonThread::performFFC()
