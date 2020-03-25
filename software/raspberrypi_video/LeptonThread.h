@@ -51,6 +51,7 @@ private:
   uint16_t loglevel;
   bool mirror;
   bool auto_capture;
+  bool uploading;
   int typeColormap;
   const int *selectedColormap;
   int selectedColormapSize;

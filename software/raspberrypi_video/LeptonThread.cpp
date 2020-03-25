@@ -20,6 +20,7 @@ LeptonThread::LeptonThread() : QThread()
 	//
 	mirror = false;
 	auto_capture = false;
+	uploading = false;
 
 	//
 	typeColormap = 3; // 1:colormap_rainbow  /  2:colormap_grayscale  /  3:colormap_ironblack(default)
@@ -387,6 +388,11 @@ void LeptonThread::run()
 
 void LeptonThread::capture()
 {
+	if (uploading)
+		return;
+
+	uploading = true;
+
 	// homedir
 	const char *homedir;
 	if ((homedir = getenv("HOME")) == NULL)
@@ -459,6 +465,8 @@ void LeptonThread::capture()
 	printf("cmd: %s\n", json_cli);
 
 	system(json_cli);
+
+	uploading = false;
 }
 
 void LeptonThread::performFFC()
