@@ -271,8 +271,8 @@ void LeptonThread::run()
 			over_heat = true;
 		}
 
-		float minCelsius = (minTemp - 27700) / 92.0;
-		float maxCelsius = (maxTemp - 27700) / 92.0;
+		float minCelsius = (minTemp - 27700) / 91.0;
+		float maxCelsius = (maxTemp - 27700) / 91.0;
 
 		// myString = QString::number(maxCelsius);
 		myString.sprintf("%.1f", maxCelsius);
