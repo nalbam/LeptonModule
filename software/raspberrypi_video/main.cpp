@@ -183,7 +183,7 @@ int main(int argc, char **argv)
 	//connect image
 	QObject::connect(thread, SIGNAL(updateImage(QImage)), &myLabel, SLOT(setImage(QImage)));
 
-	//connect temp
+	//connect string
 	QObject::connect(thread, SIGNAL(updateText(QString)), label, SLOT(setText(QString)));
 
 	//connect capture button to the thread's capture action
