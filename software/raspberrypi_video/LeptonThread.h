@@ -39,7 +39,7 @@ public:
   void run();
 
 public slots:
-  void capture();
+  void capture(float);
   void performFFC();
 
 signals:
