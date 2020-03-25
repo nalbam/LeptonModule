@@ -105,6 +105,10 @@ int main(int argc, char **argv)
 			int val = std::atoi(argv[i + 1]);
 			if ((0 <= val) && (val <= 65535))
 			{
+				if (val < 3000)
+				{
+					val = (val * 91.0) + 27700
+				}
 				rangeMin = val;
 				i++;
 			}
@@ -114,6 +118,10 @@ int main(int argc, char **argv)
 			int val = std::atoi(argv[i + 1]);
 			if ((0 <= val) && (val <= 65535))
 			{
+				if (val < 3000)
+				{
+					val = (val * 91.0) + 27700
+				}
 				rangeMax = val;
 				i++;
 			}
