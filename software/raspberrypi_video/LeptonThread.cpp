@@ -269,7 +269,13 @@ void LeptonThread::run()
 			over_heat = true;
 		}
 
-		printf("%d (%.1f) : %d (%.1f)\n", minTemp, (minTemp - 27700) / 90.0, maxTemp, (maxTemp - 27700) / 90.0);
+		float minCelsius = (minTemp - 27700) / 90.0;
+		float maxCelsius = (maxTemp - 27700) / 90.0;
+
+		// myString = (string) maxCelsius;
+		sprintf(myString, "%f", maxCelsius);
+
+		printf("%d (%.1f) : %d (%.1f)\n", minTemp, minCelsius, maxTemp, maxCelsius;
 
 		int row, column;
 		uint16_t value;
@@ -368,6 +374,7 @@ void LeptonThread::run()
 
 		//lets emit the signal for update
 		emit updateImage(myImage);
+		emit updateText(myString);
 	}
 
 	//finally, close SPI port just bcuz
