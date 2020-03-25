@@ -160,6 +160,7 @@ int main(int argc, char **argv)
 	button1->setGeometry((width + 20) / 2 - 50, height + 20, 100, 30);
 
 	//create a Thermal label
+
 	QLabel *label = new QLabel(myWidget);
 	label->setText("0");
 	label->setGeometry((width + 20) / 3 * 2, height + 20, 100, 30);
@@ -183,7 +184,7 @@ int main(int argc, char **argv)
 	QObject::connect(thread, SIGNAL(updateImage(QImage)), &myLabel, SLOT(setImage(QImage)));
 
 	//connect temp
-	QObject::connect(thread, SIGNAL(updateText(QString)), &myLabel, SLOT(setText(QString)));
+	QObject::connect(thread, SIGNAL(updateText(QString)), &label, SLOT(setText(QString)));
 
 	//connect capture button to the thread's capture action
 	QObject::connect(button1, SIGNAL(clicked()), thread, SLOT(capture()));
