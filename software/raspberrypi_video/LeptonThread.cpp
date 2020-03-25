@@ -430,20 +430,35 @@ void LeptonThread::capture()
 	fprintf(f, "{\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", now, maxCelsius);
 	fclose(f);
 
-	// upload to s3
-	char filename[20];
-	sprintf(filename, "%ld.jpg", now);
+	// upload image to s3
+	char img_dest[20];
+	sprintf(img_dest, "s3://deeplens-doorman-demo/thermal/%ld.jpg", now);
 
-	char aws[100];
-	strcpy(aws, "aws s3 cp ");
-	strcat(aws, img_path);
-	strcat(aws, " s3://deeplens-doorman-demo/thermal/");
-	strcat(aws, filename);
-	strcat(aws, " --acl public-read");
+	char img_cli[100];
+	strcpy(img_cli, "aws s3 cp ");
+	strcat(img_cli, img_path);
+	strcat(img_cli, " ");
+	strcat(img_cli, img_dest);
+	strcat(img_cli, " --acl public-read");
 
-	printf("cmd: %s\n", aws);
+	printf("cmd: %s\n", img_cli);
 
-	system(aws);
+	system(img_cli);
+
+	// upload json to s3
+	char json_dest[20];
+	sprintf(json_dest, "s3://deeplens-doorman-demo/meta/%ld.json", now);
+
+	char json_cli[100];
+	strcpy(json_cli, "aws s3 cp ");
+	strcat(json_cli, json_path);
+	strcat(json_cli, " ");
+	strcat(json_cli, json_dest);
+	strcat(json_cli, " --acl public-read");
+
+	printf("cmd: %s\n", json_cli);
+
+	system(json_cli);
 }
 
 void LeptonThread::performFFC()
