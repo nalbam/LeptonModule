@@ -402,6 +402,11 @@ void LeptonThread::capture()
 
 	printf("homedir: %s\n", homedir);
 
+	// capture time
+	time_t now = time(NULL);
+
+	printf("capture: %ld\n", now);
+
 	// json_path
 	char json_path[30];
 	strcpy(json_path, homedir);
@@ -418,11 +423,6 @@ void LeptonThread::capture()
 	}
 	fprintf(f, "{\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", now, maxCelsius);
 	fclose(f);
-
-	// capture time
-	time_t now = time(NULL);
-
-	printf("capture: %ld\n", now);
 
 	// img_path
 	char img_path[30];
