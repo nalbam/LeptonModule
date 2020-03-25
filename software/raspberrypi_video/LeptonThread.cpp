@@ -401,7 +401,7 @@ void LeptonThread::capture()
 	}
 
 	const char *bucket;
-	if ((bucket = getenv("STORAGE_NAME")) == NULL)
+	if ((bucket = getenv("BUCKET_NAME")) == NULL)
 	{
 		bucket = "deeplens-doorman-demo";
 	}
