@@ -39,7 +39,7 @@ public:
   void run();
 
 public slots:
-  void capture(float);
+  void capture();
   void performFFC();
 
 signals:
@@ -62,6 +62,8 @@ private:
   uint16_t rangeMax;
   int myImageWidth;
   int myImageHeight;
+  float minCelsius;
+  float maxCelsius;
   QImage myImage;
   QString myString;
 

@@ -39,6 +39,10 @@ LeptonThread::LeptonThread() : QThread()
 	autoRangeMax = true;
 	rangeMin = 29500;
 	rangeMax = 31200;
+
+	//
+	minCelsius = 0.0f;
+	maxCelsius = 0.0f;
 }
 
 LeptonThread::~LeptonThread()
@@ -271,8 +275,8 @@ void LeptonThread::run()
 			over_heat = true;
 		}
 
-		float minCelsius = (minTemp - 27700) / 91.0;
-		float maxCelsius = (maxTemp - 27700) / 91.0;
+		minCelsius = (minTemp - 27700) / 91.0;
+		maxCelsius = (maxTemp - 27700) / 91.0;
 
 		// myString = QString::number(maxCelsius);
 		myString.sprintf("%.1f", maxCelsius);
@@ -369,7 +373,7 @@ void LeptonThread::run()
 		if (over_heat && auto_capture)
 		{
 			printf("starting capture...\n");
-			capture(maxCelsius);
+			capture();
 		}
 
 		//lets emit the signal for update
@@ -381,7 +385,7 @@ void LeptonThread::run()
 	SpiClosePort(0);
 }
 
-void LeptonThread::capture(float temperature)
+void LeptonThread::capture()
 {
 	// homedir
 	const char *homedir;
@@ -423,7 +427,7 @@ void LeptonThread::capture(float temperature)
 		printf("Error opening file! %s\n", json_path);
 		return;
 	}
-	fprintf(f, "{\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", now, temperature);
+	fprintf(f, "{\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", now, maxCelsius);
 	fclose(f);
 
 	// upload to s3
