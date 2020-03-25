@@ -155,9 +155,14 @@ int main(int argc, char **argv)
 	myLabel.setGeometry(10, 10, width, height);
 	myLabel.setPixmap(QPixmap::fromImage(myImage));
 
-	//create a FFC button
+	//create a Capture button
 	QPushButton *button1 = new QPushButton("Capture", myWidget);
 	button1->setGeometry((width + 20) / 2 - 50, height + 20, 100, 30);
+
+	//create a Thermal label
+	QLabel *label = new QLabel(myWidget);
+	label->setText("0");
+	label->setGeometry((width + 20) / 3 * 2, height + 20, 100, 30);
 
 	//create a thread to gather SPI data
 	//when the thread emits updateImage, the label should update its image accordingly
@@ -173,9 +178,11 @@ int main(int argc, char **argv)
 		thread->useRangeMinValue(rangeMin);
 	if (0 <= rangeMax)
 		thread->useRangeMaxValue(rangeMax);
+
+	//connect image
 	QObject::connect(thread, SIGNAL(updateImage(QImage)), &myLabel, SLOT(setImage(QImage)));
 
-	//connect ffc button to the thread's ffc action
+	//connect capture button to the thread's capture action
 	QObject::connect(button1, SIGNAL(clicked()), thread, SLOT(capture()));
 	thread->start();
 
