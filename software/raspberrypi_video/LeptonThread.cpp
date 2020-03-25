@@ -431,7 +431,7 @@ void LeptonThread::capture()
 	fclose(f);
 
 	// upload image to s3
-	char img_dest[20];
+	char img_dest[50];
 	sprintf(img_dest, "s3://deeplens-doorman-demo/thermal/%ld.jpg", now);
 
 	char img_cli[100];
@@ -446,7 +446,7 @@ void LeptonThread::capture()
 	system(img_cli);
 
 	// upload json to s3
-	char json_dest[20];
+	char json_dest[50];
 	sprintf(json_dest, "s3://deeplens-doorman-demo/meta/%ld.json", now);
 
 	char json_cli[100];
