@@ -378,8 +378,8 @@ void LeptonThread::run()
 		}
 
 		//lets emit the signal for update
-		emit updateImage(myImage);
 		emit updateText(myString);
+		emit updateImage(myImage);
 	}
 
 	//finally, close SPI port just bcuz
