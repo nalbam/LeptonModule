@@ -309,10 +309,10 @@ void LeptonThread::run()
 
 				//
 				value = (valueFrameBuffer - minValue) * scale;
-				// if (value > 255)
-				// {
-				// 	value = 255;
-				// }
+				if (value > 255)
+					value = 255;
+				if (value < 0)
+					value = 0;
 				int ofs_r = 3 * value + 0;
 				if (colormapSize <= ofs_r)
 					ofs_r = colormapSize - 1;
