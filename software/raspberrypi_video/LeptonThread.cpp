@@ -126,6 +126,8 @@ void LeptonThread::run()
 	//create the initial image
 	myImage = QImage(myImageWidth, myImageHeight, QImage::Format_RGB888);
 
+	myString = "0";
+
 	const int *colormap = selectedColormap;
 	const int colormapSize = selectedColormapSize;
 	uint16_t minValue = rangeMin;
@@ -273,9 +275,9 @@ void LeptonThread::run()
 		float maxCelsius = (maxTemp - 27700) / 90.0;
 
 		// myString = (string) maxCelsius;
-		sprintf(myString, "%f", maxCelsius);
+		// sprintf(myString, "%f", maxCelsius);
 
-		printf("%d (%.1f) : %d (%.1f)\n", minTemp, minCelsius, maxTemp, maxCelsius;
+		printf("%d (%.1f) : %d (%.1f)\n", minTemp, minCelsius, maxTemp, maxCelsius);
 
 		int row, column;
 		uint16_t value;
