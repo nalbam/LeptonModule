@@ -65,6 +65,7 @@ private:
   int myImageHeight;
   float minCelsius;
   float maxCelsius;
+  float convertCelsius(float);
   QImage myImage;
   QString myString;
 

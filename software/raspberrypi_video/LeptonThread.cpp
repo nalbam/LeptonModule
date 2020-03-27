@@ -276,10 +276,9 @@ void LeptonThread::run()
 			over_heat = true;
 		}
 
-		minCelsius = (minTemp - 27700) / 91.0;
-		maxCelsius = (maxTemp - 27700) / 91.0;
+		minCelsius = convertCelsius(minTemp);
+		maxCelsius = convertCelsius(maxTemp);
 
-		// myString = QString::number(maxCelsius);
 		myString.sprintf("%.1f", maxCelsius);
 
 		printf("%d (%.1f) : %d (%.1f)\n", minTemp, minCelsius, maxTemp, maxCelsius);
@@ -480,6 +479,11 @@ void LeptonThread::performFFC()
 {
 	//perform FFC
 	lepton_perform_ffc();
+}
+
+float LeptonThread::convertCelsius(float val)
+{
+	return (val - 27700) / 91.0;
 }
 
 void LeptonThread::log_message(uint16_t level, std::string msg)
