@@ -359,11 +359,11 @@ void LeptonThread::run()
 		{
 			column = max_column + i;
 			row = max_row + i;
-			if (column >= 0 && column < myImageWidth)
+			if (column > 0 && column < myImageWidth)
 			{
 				myImage.setPixel(column, max_row, crosshair);
 			}
-			if (row >= 0 && row < myImageHeight)
+			if (row > 0 && row < myImageHeight)
 			{
 				myImage.setPixel(max_column, row, crosshair);
 			}
@@ -405,8 +405,15 @@ void LeptonThread::capture()
 		bucket = "deeplens-doorman-demo";
 	}
 
+	const char *uuid;
+	if ((uuid = getenv("DEVICE_ID")) == NULL)
+	{
+		uuid = "deeplens-01";
+	}
+
 	printf("homedir: %s\n", homedir);
 	printf("bucket: %s\n", bucket);
+	printf("uuid: %s\n", uuid);
 
 	// capture time
 	time_t now = time(NULL);
@@ -454,7 +461,7 @@ void LeptonThread::capture()
 		printf("Error opening file! %s\n", json_path);
 		return;
 	}
-	fprintf(f, "{\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", now, maxCelsius);
+	fprintf(f, "{\"uuid\":\"%s\",\"filename\":\"%ld\",\"temperature\":%.1f,\"uploaded\":false}", uuid, now, maxCelsius);
 	fclose(f);
 
 	// upload json to s3
